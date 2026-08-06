@@ -23,3 +23,27 @@ function borrarElementoInicio(array){
     let elementoEliminado = array.shift();
     return elementoEliminado;
 }
+
+//funcion pop(), esta eliminará el último elemento del array y retornará dicho elemento.
+function borrarElementoFinal(array){
+    let elementoEliminado = array.pop();
+    return elementoEliminado;
+}
+
+//funcion unshift(), esta agregará un elemento al inicio del array y retornará el array modificado.
+function agregarElementoInicio(array, elemento){
+    array.unshift(elemento);
+    return array;
+}
+
+//funcion push(), esta agregará un elemento al final del array y retornará el array modificado.
+function agregarElementoFinal(array, elemento){
+    array.push(elemento);
+    return array;
+}
+
+//funcion find(), esta recorrerá el array y retornará el primer elemento que cumpla con la condición, si no encuentra ningún elemento que cumpla con la condición, retornará undefined.
+function encontrarElementoIgualAValor(array, numero) {
+    let elementoEncontrado = array.find(element => element === numero);
+    return elementoEncontrado;
+}
