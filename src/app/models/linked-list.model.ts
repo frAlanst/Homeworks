@@ -1,4 +1,3 @@
-// Nodo de la lista enlazada
 export class StudentNode {
   code: string;
   name: string;
@@ -13,11 +12,11 @@ export class StudentNode {
   }
 }
 
-// Estructura de la Lista Simplemente Enlazada
+
 export class StudentLinkedList {
   head: StudentNode | null = null;
 
-  // Agregar un nodo al final
+ 
   add(code: string, name: string, age: number): void {
     const newNode = new StudentNode(code, name, age);
     if (!this.head) {
@@ -31,7 +30,6 @@ export class StudentLinkedList {
     current.next = newNode;
   }
 
-  // Eliminar un nodo por código
   remove(code: string): void {
     if (!this.head) return;
 
