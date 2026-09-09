@@ -5,8 +5,6 @@
   </header>
 
   <div class="grid-container">
-
-    <!-- 1. PACIENTES EN ESPERA (LISTA SIMPLE) -->
     <div class="card">
       <h2>1. Pacientes en Espera <small>(Lista Simple)</small></h2>
       
@@ -28,7 +26,6 @@
       <p *ngIf="pacientes.toArray().length === 0" class="empty">No hay pacientes esperando.</p>
     </div>
 
-    <!-- 2. HISTORIAL DE ATENCIÓN (LISTA DOBLE) -->
     <div class="card">
       <h2>2. Historial de Atención <small>(Lista Doble)</small></h2>
 
@@ -54,7 +51,6 @@
       </ul>
     </div>
 
-    <!-- 3. MÉDICO DE GUARDIA (LISTA CIRCULAR) -->
     <div class="card">
       <h2>3. Médico de Guardia <small>(Lista Circular)</small></h2>
       
@@ -78,7 +74,6 @@
       </ul>
     </div>
 
-    <!-- 4. COMITÉ ADMINISTRATIVO (LISTA CIRCULAR DOBLE) -->
     <div class="card">
       <h2>4. Comité Administrativo <small>(Lista Circular Doble)</small></h2>
 

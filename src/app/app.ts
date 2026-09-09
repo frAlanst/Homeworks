@@ -16,23 +16,19 @@ import {
   styleUrl: './app.css'
 })
 export class App implements OnInit, OnDestroy {
-  // Instancias de las 4 listas
   pacientes = new ListaSimplePacientes();
   historial = new ListaDobleHistorial();
   medicos = new ListaCircularMedicos();
   comite = new ListaCircularDobleComite();
 
-  // Inputs para formularios
   nuevoNombrePaciente = '';
   nuevoMotivoPaciente = '';
 
-  // Timer para rotación automática
   timerId: any;
   contadorTimer = 10;
   intervaloContador: any;
 
   ngOnInit(): void {
-    // 1. Cargar Datos Iniciales (Mock Data)
     this.pacientes.agregar('Carlos Ruiz', 'Dolor abdominal');
     this.pacientes.agregar('Ana Gómez', 'Fiebre alta');
     this.pacientes.agregar('Luis Martinez', 'Chequeo general');
@@ -45,7 +41,6 @@ export class App implements OnInit, OnDestroy {
     this.comite.agregar('Lic. Roberto Flores', 'Jefe de Operaciones');
     this.comite.agregar('Dra. Sofia Mendez', 'Jefa de Urgencias');
 
-    // 2. Simulación: Cambia el médico de guardia cada 10 segundos
     this.iniciarTimerRotacion();
   }
 
@@ -64,7 +59,6 @@ export class App implements OnInit, OnDestroy {
     }, 1000);
   }
 
-  // --- REQUISITO: Atender Paciente (Pasa de Lista Simple a Lista Doble) ---
   atenderPaciente(): void {
     const atendido = this.pacientes.atender();
     if (atendido) {
