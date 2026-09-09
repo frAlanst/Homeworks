@@ -1,12 +1,82 @@
-import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { 
+  ListaSimplePacientes, 
+  ListaDobleHistorial, 
+  ListaCircularMedicos, 
+  ListaCircularDobleComite 
+} from './estructuras';
 
 @Component({
-  imports: [RouterOutlet],
   selector: 'app-root',
-  styleUrl: './app.css',
+  standalone: true,
+  imports: [CommonModule, FormsModule],
   templateUrl: './app.html',
+  styleUrl: './app.css'
 })
-export class App {
-  protected readonly title = signal('parcial-1');
+export class App implements OnInit, OnDestroy {
+  // Instancias de las 4 listas
+  pacientes = new ListaSimplePacientes();
+  historial = new ListaDobleHistorial();
+  medicos = new ListaCircularMedicos();
+  comite = new ListaCircularDobleComite();
+
+  // Inputs para formularios
+  nuevoNombrePaciente = '';
+  nuevoMotivoPaciente = '';
+
+  // Timer para rotación automática
+  timerId: any;
+  contadorTimer = 10;
+  intervaloContador: any;
+
+  ngOnInit(): void {
+    // 1. Cargar Datos Iniciales (Mock Data)
+    this.pacientes.agregar('Carlos Ruiz', 'Dolor abdominal');
+    this.pacientes.agregar('Ana Gómez', 'Fiebre alta');
+    this.pacientes.agregar('Luis Martinez', 'Chequeo general');
+
+    this.medicos.agregar('Dr. Mario Rossi', 'Pediatría');
+    this.medicos.agregar('Dra. Elena Rostova', 'Urgencias');
+    this.medicos.agregar('Dr. Juan Pérez', 'Cardiología');
+
+    this.comite.agregar('Dra. Beatriz Silva', 'Directora Médica');
+    this.comite.agregar('Lic. Roberto Flores', 'Jefe de Operaciones');
+    this.comite.agregar('Dra. Sofia Mendez', 'Jefa de Urgencias');
+
+    // 2. Simulación: Cambia el médico de guardia cada 10 segundos
+    this.iniciarTimerRotacion();
+  }
+
+  ngOnDestroy(): void {
+    if (this.timerId) clearInterval(this.timerId);
+    if (this.intervaloContador) clearInterval(this.intervaloContador);
+  }
+
+  iniciarTimerRotacion(): void {
+    this.intervaloContador = setInterval(() => {
+      this.contadorTimer--;
+      if (this.contadorTimer <= 0) {
+        this.medicos.rotar();
+        this.contadorTimer = 10;
+      }
+    }, 1000);
+  }
+
+  // --- REQUISITO: Atender Paciente (Pasa de Lista Simple a Lista Doble) ---
+  atenderPaciente(): void {
+    const atendido = this.pacientes.atender();
+    if (atendido) {
+      this.historial.agregar(atendido.nombre, atendido.motivo);
+    }
+  }
+
+  agregarPaciente(): void {
+    if (this.nuevoNombrePaciente.trim() && this.nuevoMotivoPaciente.trim()) {
+      this.pacientes.agregar(this.nuevoNombrePaciente.trim(), this.nuevoMotivoPaciente.trim());
+      this.nuevoNombrePaciente = '';
+      this.nuevoMotivoPaciente = '';
+    }
+  }
 }
