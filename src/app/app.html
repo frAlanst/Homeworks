@@ -1,13 +1,13 @@
 <div class="dashboard">
   <header>
     <h1>🏥 Sistema Hospitalario Parcial 1</h1>
-    <p>Gestión mediante Listas Enlazadas Simples, Dobles, Circulares y Circulares Dobles</p>
+    <p>Gestión mediante Listas</p>
   </header>
 
   <div class="grid-container">
     <div class="card">
       <h2>1. Pacientes en Espera <small>(Lista Simple)</small></h2>
-      
+
       <div class="form">
         <input type="text" [(ngModel)]="nuevoNombrePaciente" placeholder="Nombre paciente" />
         <input type="text" [(ngModel)]="nuevoMotivoPaciente" placeholder="Motivo de consulta" />
@@ -33,7 +33,7 @@
         <p><strong>Paciente:</strong> {{ historial.actual.nombre }}</p>
         <p><strong>Motivo:</strong> {{ historial.actual.motivo }}</p>
         <p><strong>Hora:</strong> {{ historial.actual.fecha }}</p>
-        
+
         <div class="nav-buttons">
           <button (click)="historial.atras()" [disabled]="!historial.actual.anterior">⬅ Anterior</button>
           <button (click)="historial.siguiente()" [disabled]="!historial.actual.siguiente">Siguiente ➡</button>
@@ -53,7 +53,7 @@
 
     <div class="card">
       <h2>3. Médico de Guardia <small>(Lista Circular)</small></h2>
-      
+
       <div class="timer-badge">
         Rotación automática en: <strong>{{ contadorTimer }}s</strong>
       </div>
@@ -80,7 +80,7 @@
       <div class="comite-box" *ngIf="comite.actual">
         <h3>👤 {{ comite.actual.nombre }}</h3>
         <p>Cargo: <strong>{{ comite.actual.cargo }}</strong></p>
-        
+
         <div class="nav-buttons">
           <button (click)="comite.anterior()">↺ Anterior</button>
           <button (click)="comite.siguiente()">↻ Siguiente</button>
