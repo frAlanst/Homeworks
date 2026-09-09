@@ -1,0 +1,58 @@
+<div class="container">
+  <h1>Demostración de Listas Enlazadas</h1>
+
+  <div class="grid">
+  
+    <section class="card">
+      <h2>1. Lista Enlazada Simple (Lista de Tareas)</h2>
+      <p class="description">Navegación unidireccional</p>
+
+      <div class="form-group">
+        <input 
+          type="text" 
+          [(ngModel)]="newTask" 
+          placeholder="Nueva tarea..." 
+          (keyup.enter)="addTodo()"
+        />
+        <button (click)="addTodo()">Agregar</button>
+      </div>
+
+      <ul class="list">
+        <li *ngFor="let item of todoItems">
+          <span>{{ item }}</span>
+          <button class="btn-danger" (click)="removeTodo(item)">Eliminar</button>
+        </li>
+      </ul>
+      <p *ngIf="todoItems.length === 0" class="empty">La lista está vacía.</p>
+    </section>
+
+  
+    <section class="card">
+      <h2>2. Lista Doblemente Enlazada (Reproductor)</h2>
+      <p class="description">Navegación bidireccional</p>
+
+      <div class="form-group">
+        <input 
+          type="text" 
+          [(ngModel)]="newSong" 
+          placeholder="Nombre de canción..." 
+          (keyup.enter)="addSong()"
+        />
+        <button (click)="addSong()">Agregar a Playlist</button>
+      </div>
+
+      <div class="player-controls" *ngIf="playlistItems.length > 0">
+        <button (click)="playPrev()">Anterior</button>
+        <span class="current-track">Sonando: <strong>{{ currentSong || 'Ninguna' }}</strong></span>
+        <button (click)="playNext()">Siguiente</button>
+      </div>
+
+      <ul class="list">
+        <li *ngFor="let song of playlistItems" [class.active]="song === currentSong">
+          {{ song }}
+        </li>
+      </ul>
+      <p *ngIf="playlistItems.length === 0" class="empty">Playlist vacía.</p>
+    </section>
+  </div>
+</div>
