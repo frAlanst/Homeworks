@@ -1,0 +1,8 @@
+.main-container {
+    font-family: Arial, sans-serif;
+    max-width: 500px;
+    margin: 2rem auto;
+    padding: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}

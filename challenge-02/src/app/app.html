@@ -1,0 +1,10 @@
+<div class="main-container">
+  <h2>Gestión de Contactos</h2>
+
+  @if (isLoading()) {
+  <app-loader></app-loader>
+  } @else {
+  <app-contact-form (addContact)="onAddContact($event)"></app-contact-form>
+  <app-contact-list [contacts]="contacts()" (deleteContact)="onDeleteContact($event)"></app-contact-list>
+  }
+</div>
