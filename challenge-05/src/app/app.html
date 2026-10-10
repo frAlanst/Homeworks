@@ -1,0 +1,26 @@
+<h1>Cola del cajero automático</h1>
+
+<form (ngSubmit)="agregarPersona()" #f="ngForm">
+  <input type="text" name="nombre" placeholder="Nombre" [(ngModel)]="nombre" required />
+  <input type="number" name="monto" placeholder="Monto a retirar" [(ngModel)]="monto" required />
+  <button type="submit" [disabled]="!nombre || monto === null">Agregar a la cola</button>
+</form>
+
+<table>
+  <thead>
+    <tr>
+      <th>Posición</th>
+      <th>Nombre</th>
+      <th>Monto</th>
+      <th>Fecha de llegada</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let p of cola; let i = index">
+      <td>{{ i + 1 }}</td>
+      <td>{{ p.nombre }}</td>
+      <td>{{ p.monto | currency }}</td>
+      <td>{{ p.fechaLlegada | date:'medium' }}</td>
+    </tr>
+  </tbody>
+</table>
