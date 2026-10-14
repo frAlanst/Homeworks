@@ -1,0 +1,70 @@
+.tree-node {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+
+    .node-header {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.4rem 0.75rem;
+        border-radius: 6px;
+        transition: background 0.15s;
+
+        &:hover {
+            background: #f0f2f8;
+        }
+
+        .icon {
+            cursor: pointer;
+            font-size: 1.1rem;
+        }
+
+        .name {
+            font-weight: 500;
+            color: #2c3e50;
+        }
+
+        .owner {
+            font-size: 0.75rem;
+            color: #95a5a6;
+            margin-left: auto;
+            margin-right: 1rem;
+        }
+
+        .actions {
+            display: flex;
+            gap: 0.25rem;
+
+            button {
+                background: transparent;
+                border: 1px solid #dcdde1;
+                border-radius: 4px;
+                padding: 0.15rem 0.4rem;
+                cursor: pointer;
+                font-size: 0.8rem;
+                transition: background 0.15s;
+
+                &:hover {
+                    background: #eef0f5;
+                }
+            }
+        }
+
+        .delete {
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            opacity: 0.5;
+            transition: opacity 0.15s;
+
+            &:hover {
+                opacity: 1;
+            }
+        }
+    }
+
+    .children {
+        border-left: 1px dashed #dcdde1;
+        margin-left: 1rem;
+    }
+}

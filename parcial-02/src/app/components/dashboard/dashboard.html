@@ -1,0 +1,27 @@
+<div class="dashboard">
+    <header>
+        <h1>📁 Gestor de Archivos</h1>
+        <div class="user-info">
+            <span *ngIf="userEmail$ | async as email">{{ email }}</span>
+            <button (click)="logout()">Cerrar sesión</button>
+        </div>
+    </header>
+
+    <div class="toolbar">
+        <input type="text" placeholder="Nombre de carpeta o archivo..." [(ngModel)]="newName"
+            (keyup.enter)="createRoot('folder')" />
+        <button (click)="createRoot('folder')">+ Carpeta raíz</button>
+        <button (click)="createRoot('file')">+ Archivo raíz</button>
+    </div>
+
+    <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
+
+    <div class="tree-container">
+        <app-tree-node *ngFor="let node of nodes$ | async" [node]="node" [level]="0" (addChild)="handleAddChild($event)"
+            (deleteNode)="handleDelete($event)"></app-tree-node>
+
+        <p class="empty" *ngIf="(nodes$ | async)?.length === 0">
+            No hay elementos. Crea tu primera carpeta o archivo.
+        </p>
+    </div>
+</div>

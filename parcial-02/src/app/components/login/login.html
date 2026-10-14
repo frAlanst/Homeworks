@@ -1,0 +1,21 @@
+<div class="login-container">
+    <div class="login-card">
+        <h2>{{ isRegisterMode ? 'Crear cuenta' : 'Iniciar sesión' }}</h2>
+
+        <input type="email" placeholder="Correo electrónico" [(ngModel)]="email" name="email" required />
+
+        <input type="password" placeholder="Contraseña" [(ngModel)]="password" name="password" required />
+
+        <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
+
+        <button (click)="onSubmit()">
+            {{ isRegisterMode ? 'Registrarse' : 'Entrar' }}
+        </button>
+
+        <p class="toggle" (click)="toggleMode()">
+            {{ isRegisterMode
+            ? '¿Ya tienes cuenta? Inicia sesión'
+            : '¿No tienes cuenta? Regístrate' }}
+        </p>
+    </div>
+</div>

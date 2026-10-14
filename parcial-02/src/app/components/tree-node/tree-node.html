@@ -1,0 +1,22 @@
+<div class="tree-node">
+    <div class="node-header" [style.padding-left.px]="level * 20">
+        <span class="icon" (click)="toggle()" *ngIf="node.type === 'folder'">
+            {{ expanded ? '📂' : '📁' }}
+        </span>
+        <span class="icon" *ngIf="node.type === 'file'">📄</span>
+
+        <span class="name">{{ node.name }}</span>
+        <span class="owner">{{ node.ownerEmail }}</span>
+
+        <div class="actions" *ngIf="node.type === 'folder'">
+            <button (click)="onAdd('folder')" title="Nueva carpeta">+📁</button>
+            <button (click)="onAdd('file')" title="Nuevo archivo">+📄</button>
+        </div>
+        <button class="delete" (click)="onDelete()" title="Eliminar">🗑️</button>
+    </div>
+
+    <div class="children" *ngIf="expanded && node.children.length > 0">
+        <app-tree-node *ngFor="let child of node.children" [node]="child" [level]="level + 1"
+            (addChild)="addChild.emit($event)" (deleteNode)="deleteNode.emit($event)"></app-tree-node>
+    </div>
+</div>
