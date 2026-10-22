@@ -1,0 +1,40 @@
+<h2>Nuevo libro</h2>
+
+<form [formGroup]="form" (ngSubmit)="submit()">
+    <label>
+        Nombre
+        <input type="text" formControlName="name" />
+    </label>
+    @if (form.get('name')?.touched && form.get('name')?.invalid) {
+    <small class="error">El nombre es obligatorio</small>
+    }
+
+    <label>
+        ISBN
+        <input type="text" formControlName="isbn" placeholder="10 o 13 dígitos" />
+    </label>
+    @if (form.get('isbn')?.touched && form.get('isbn')?.invalid) {
+    <small class="error">ISBN inválido (10 o 13 dígitos, sin guiones)</small>
+    }
+
+    <label>
+        Autor
+        <input type="text" formControlName="author" />
+    </label>
+    @if (form.get('author')?.touched && form.get('author')?.invalid) {
+    <small class="error">El autor es obligatorio</small>
+    }
+
+    <label>
+        Editorial
+        <input type="text" formControlName="editorial" />
+    </label>
+    @if (form.get('editorial')?.touched && form.get('editorial')?.invalid) {
+    <small class="error">La editorial es obligatoria</small>
+    }
+
+    <div class="actions">
+        <button type="submit">Agregar a la pila</button>
+        <a routerLink="/">Cancelar</a>
+    </div>
+</form>

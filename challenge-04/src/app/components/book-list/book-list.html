@@ -1,0 +1,33 @@
+<h2>Pila de libros ({{ bookService.size() }})</h2>
+
+<a routerLink="/nuevo">+ Agregar libro</a>
+<button (click)="removeTop()" [disabled]="bookService.size() === 0">
+    Sacar libro del tope
+</button>
+
+@if (bookService.size() === 0) {
+<p>La pila está vacía.</p>
+} @else {
+<table>
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Nombre</th>
+            <th>ISBN</th>
+            <th>Autor</th>
+            <th>Editorial</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (book of bookService.getBooks(); track book.isbn; let i = $index) {
+        <tr [class.top]="i === 0">
+            <td>{{ i === 0 ? 'TOPE' : i + 1 }}</td>
+            <td>{{ book.name }}</td>
+            <td>{{ book.isbn }}</td>
+            <td>{{ book.author }}</td>
+            <td>{{ book.editorial }}</td>
+        </tr>
+        }
+    </tbody>
+</table>
+}
