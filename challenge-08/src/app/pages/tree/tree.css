@@ -1,0 +1,43 @@
+.controls {
+    display: flex;
+    gap: 12px;
+    align-items: flex-end;
+    margin-bottom: 12px;
+}
+
+label {
+    display: flex;
+    flex-direction: column;
+    font-weight: bold;
+}
+
+input {
+    padding: 8px;
+    min-width: 280px;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+}
+
+input[type='number'] {
+    min-width: 100px;
+}
+
+button {
+    padding: 8px 14px;
+    border: none;
+    border-radius: 6px;
+    background: #4f46e5;
+    color: #fff;
+    cursor: pointer;
+}
+
+.hint {
+    color: #64748b;
+    font-size: 14px;
+}
+
+.tree-container {
+    overflow-x: auto;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}

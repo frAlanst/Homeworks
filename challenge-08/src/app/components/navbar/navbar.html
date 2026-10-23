@@ -1,0 +1,11 @@
+<header>
+    <nav>
+        <a routerLink="/libros" routerLinkActive="active">Pila de libros</a>
+        <a routerLink="/arbol" routerLinkActive="active">Árbol BST</a>
+    </nav>
+
+    <div class="user">
+        <span>👤 {{ auth.username() }} ({{ auth.user()?.email }})</span>
+        <button type="button" (click)="logout()">Logout</button>
+    </div>
+</header>

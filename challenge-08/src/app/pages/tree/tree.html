@@ -1,0 +1,22 @@
+<h2>Árbol binario de búsqueda</h2>
+
+<section class="controls">
+    <label>
+        Serie de números
+        <input type="text" [(ngModel)]="seriesInput" />
+    </label>
+    <button (click)="build()">Construir árbol</button>
+</section>
+
+<section class="controls">
+    <label>
+        Buscar valor
+        <input type="number" [(ngModel)]="searchInput" (keyup.enter)="search()" />
+    </label>
+    <button (click)="search()">Buscar</button>
+    <strong>{{ searchMessage }}</strong>
+</section>
+
+<p class="hint">Los recorridos se imprimen en la consola (F12).</p>
+
+<div #container class="tree-container"></div>

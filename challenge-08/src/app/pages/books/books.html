@@ -1,0 +1,39 @@
+<h2>Pila de libros ({{ stack.size() }})</h2>
+
+<form class="form" (ngSubmit)="add()">
+    <input name="name" [(ngModel)]="form.name" placeholder="Nombre" required />
+    <input name="isbn" [(ngModel)]="form.isbn" placeholder="ISBN" required />
+    <input name="author" [(ngModel)]="form.author" placeholder="Autor" required />
+    <input name="editorial" [(ngModel)]="form.editorial" placeholder="Editorial" required />
+    <button type="submit">Agregar</button>
+    <button type="button" class="danger" (click)="stack.pop()" [disabled]="stack.size() === 0">
+        Sacar del tope
+    </button>
+</form>
+
+@if (stack.size() === 0) {
+<p>La pila está vacía.</p>
+} @else {
+<table>
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Nombre</th>
+            <th>ISBN</th>
+            <th>Autor</th>
+            <th>Editorial</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (book of stack.books(); track book.isbn; let i = $index) {
+        <tr [class.top]="i === 0">
+            <td>{{ i === 0 ? 'TOPE' : i + 1 }}</td>
+            <td>{{ book.name }}</td>
+            <td>{{ book.isbn }}</td>
+            <td>{{ book.author }}</td>
+            <td>{{ book.editorial }}</td>
+        </tr>
+        }
+    </tbody>
+</table>
+}
