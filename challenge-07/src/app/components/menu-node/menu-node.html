@@ -1,0 +1,16 @@
+<li>
+    <div class="row">
+        <a [routerLink]="'/' + node.value.link" routerLinkActive="active">{{ node.value.title }}</a>
+        @if (node.children.length > 0) {
+        <button type="button" (click)="toggle()">{{ open ? '▾' : '▸' }}</button>
+        }
+    </div>
+
+    @if (node.children.length > 0 && open) {
+    <ul>
+        @for (child of node.children; track child.value.link) {
+        <app-menu-node [node]="child" />
+        }
+    </ul>
+    }
+</li>

@@ -1,0 +1,39 @@
+li {
+    list-style: none;
+}
+
+.row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+a {
+    flex: 1;
+    color: #e8eef7;
+    text-decoration: none;
+    padding: 8px 10px;
+    border-radius: 4px;
+}
+
+a:hover {
+    background: #2c3e5a;
+}
+
+a.active {
+    background: #3f6fb5;
+    font-weight: bold;
+}
+
+button {
+    background: none;
+    border: none;
+    color: #e8eef7;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+ul {
+    padding-left: 16px;
+    margin: 0;
+}
