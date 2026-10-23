@@ -1,0 +1,10 @@
+@use 'variables' as v;
+
+@mixin gradient-bg {
+    background: linear-gradient(135deg, v.$gradient-start, v.$gradient-end);
+}
+
+@mixin surface {
+    border: none;
+    box-shadow: v.$surface-shadow;
+}

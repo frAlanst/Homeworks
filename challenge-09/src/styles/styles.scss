@@ -1,0 +1,24 @@
+@use 'bootstrap/scss/bootstrap' with ($primary: #4f46e5,
+    $body-bg: #f1f5f9,
+    $border-radius: 0.75rem,
+    $font-family-sans-serif: ('Segoe UI', system-ui, sans-serif));
+@use './mixins' as m;
+
+.auth-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    @include m.gradient-bg;
+
+    .auth-card {
+        width: 100%;
+        max-width: 420px;
+        @include m.surface;
+    }
+}
+
+.surface {
+    @include m.surface;
+}

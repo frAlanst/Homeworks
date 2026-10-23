@@ -1,0 +1,8 @@
+<nav class="navbar app-navbar px-3 px-md-4">
+    <a class="navbar-brand fw-bold text-white" routerLink="/tareas">✅ Mis tareas</a>
+
+    <div class="d-flex align-items-center gap-3 text-white">
+        <span class="d-none d-sm-inline">👤 {{ auth.username() }}</span>
+        <button type="button" class="btn btn-outline-light btn-sm" (click)="logout()">Logout</button>
+    </div>
+</nav>
