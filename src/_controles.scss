@@ -1,0 +1,15 @@
+$papel: #141825;
+$panel: #202637;
+$letra: #f7f3e9;
+$acento: #ffb45c;
+@mixin tarjeta {
+  background:$panel;
+  border:1px solid #434b62;
+  padding:clamp(18px,3vw,32px);
+  border-radius:12px;
+}
+@mixin control {
+  font:inherit;
+  border-radius:6px;
+  padding:9px 12px;
+}

@@ -1,0 +1,13 @@
+<main>
+<header><h1>Radio St<span aria-hidden="true">.</span></h1><p>Catálogo de música educativa</p></header>
+<div class="layout">
+<section class="chart"><div class="head"><h2>Ranking de escuchas</h2><label>Mostrar<select [(ngModel)]="limite" (ngModelChange)="refrescarRanking()"><option [ngValue]="3">Top 3</option><option [ngValue]="5">Top 5</option><option [ngValue]="0">Todas</option></select></label></div>
+<ol>@for(c of top;track c.titulo){<li><button class="track" (click)="elegir(c.titulo)" [attr.aria-label]="'Ver ficha de '+c.titulo"><span class="rank">{{$index+1}}</span><span class="title">{{c.titulo}}</span><strong>{{c.escuchas}}</strong><span class="bar" aria-hidden="true" [style.width.%]="100*c.escuchas/(top[0].escuchas || 1)"></span></button></li>}</ol>
+</section>
+<section class="detail"><label>Canción seleccionada<select [ngModel]="actual.titulo" (ngModelChange)="elegir($event)">@for(c of catalogo;track c.titulo){<option>{{c.titulo}}</option>}</select></label><h2>{{actual.titulo}}</h2><div class="listen"><b>{{actual.escuchas}} escuchas</b><button (click)="escuchar()">Registrar escucha</button></div>
+<h3>Canciones relacionadas</h3><div class="chips">@for(v of vecinas;track v){<button (click)="elegir(v)">{{v}}</button>} @empty {<p>Aún no tiene recomendaciones.</p>}</div><form (ngSubmit)="enlazar()" ngNativeValidate><label>Conectar con<select required name="pareja" [(ngModel)]="pareja"><option value="">Elige una canción</option>@for(c of catalogo;track c.titulo){@if(c.titulo!==actual.titulo){<option>{{c.titulo}}</option>}}</select></label><button>Conectar</button></form><p role="status">{{mensajeFicha}}</p>
+</section>
+<section><h2>Buscar en el catálogo</h2><form (ngSubmit)="comprobar()" ngNativeValidate><label>Título o prefijo<input required name="texto" [ngModel]="texto" (ngModelChange)="filtrar($event)" placeholder="Ej. ecos"></label><button>Comprobar título</button></form>
+@if(texto.trim()){<h3>Sugerencias</h3><div class="chips">@for(c of sugeridas;track c.titulo){<button (click)="filtrar(c.titulo); comprobar()">{{c.titulo}}</button>} @empty {<p>Sin coincidencias.</p>}</div>}<p role="status">{{exacta}}</p></section>
+<section><h2>Nueva canción</h2><form (ngSubmit)="guardar()" ngNativeValidate><label>Título nuevo<input name="titulo" [(ngModel)]="titulo" required></label><label>Escuchas iniciales<input type="number" name="escuchas" min="0" step="1" [(ngModel)]="escuchas" required></label><button>Agregar canción</button></form><p role="status">{{mensajeAlta}}</p></section>
+</div></main>
