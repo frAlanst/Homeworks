@@ -1,0 +1,24 @@
+<main>
+  <header><h1>Buscador de GIFs</h1><img src="giphy.gif" alt="Powered by GIPHY" width="160"></header>
+  @if (!configured) { <p class="notice">Agrega tu clave de GIPHY al archivo .env y reinicia con npm start.</p> }
+  <form (submit)="$event.preventDefault(); search()">
+    <label for="query">¿Qué GIF quieres encontrar?</label>
+    <div class="bar"><input #box id="query" type="search" placeholder="Por ejemplo, smile" maxlength="50"
+      (input)="change(box.value)" [disabled]="!configured"><button [disabled]="!configured || !query().trim() || state()==='loading'">Buscar</button></div>
+  </form>
+  <p aria-live="polite">
+    @switch (state()) {
+      @case ('loading') { Buscando GIFs… }
+      @case ('done') { @if (gifs().length) { {{gifs().length}} resultados para «{{query().trim()}}» } @else { Sin resultados. Prueba con otra palabra. } }
+      @case ('error') { {{error()}} }
+    }
+  </p>
+  <div class="gallery">
+    @for (gif of gifs(); track gif.id) {
+      <a [href]="gif.url" target="_blank" rel="noopener noreferrer">
+        <img [src]="gif.images.fixed_height.url" [alt]="gif.alt_text || gif.title || 'GIF de ' + query()" loading="lazy">
+        @if (gif.username) { <span>{{'@' + gif.username}}</span> }
+      </a>
+    }
+  </div>
+</main>
