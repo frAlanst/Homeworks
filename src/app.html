@@ -1,0 +1,32 @@
+<main>
+  <h1>Buscador de productos</h1>
+  <div class="layout">
+    <section>
+      <div class="filters">
+        <label>Prefijo<input type="search" [ngModel]="prefix()" (ngModelChange)="prefix.set($event)" placeholder="Todos los productos"></label>
+        <label>Top K<input type="number" min="1" step="1" [ngModel]="k()" (ngModelChange)="k.set($event)"></label>
+      </div>
+      <h2>Más populares</h2>
+      @if (!validK()) {
+        <p role="status">Escribe un número entero mayor que cero en Top K.</p>
+      } @else if (results().length) {
+        <table><thead><tr><th>Puesto</th><th>Producto</th><th>Popularidad</th></tr></thead>
+        <tbody>@for (product of results(); track product.name; let i = $index) {
+          <tr><td>{{ i + 1 }}</td><td>{{ product.name }}</td><td>{{ product.popularity }}</td></tr>
+        }</tbody></table>
+      } @else {
+        <p role="status">Ningún producto empieza por «{{ prefix() }}».</p>
+      }
+    </section>
+    <aside>
+      <h2>Guardar producto</h2>
+      <p>Si el nombre ya existe, se actualizará su popularidad.</p>
+      <form #form="ngForm" (ngSubmit)="save()">
+        <label>Nombre<input name="name" [(ngModel)]="name" required></label>
+        <label>Popularidad<input type="number" name="popularity" min="0" step="any" [(ngModel)]="popularity" required></label>
+        <button [disabled]="form.invalid || !name.trim()">Guardar</button>
+      </form>
+      <p role="status">{{ notice() }}</p>
+    </aside>
+  </div>
+</main>
