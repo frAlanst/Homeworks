@@ -1,0 +1,195 @@
+<main>
+  <header>
+    <h1>Atlas de amistades</h1>
+    <p>
+      {{graph().people.length}} personas · {{graph().cities.length}} ciudades ·
+      {{graph().friends.length}} amistades
+    </p>
+  </header>
+  @if(notice()){
+  <p role="status" class="notice">{{notice()}}</p>
+  }
+  <div class="layout">
+    <div>
+      <section class="map">
+        <div class="bar">
+          <h2>Mapa de la red</h2>
+          <div class="legend"><span>● Persona</span><span>◆ Ciudad</span></div>
+        </div>
+        @if(graph().cities.length){<network-graph
+          [network]="graph()"
+          (picked)="pick($event)"
+        />} @else {
+        <p>Agrega una ciudad para empezar.</p>
+        }
+        <footer><span>━ Amistad</span><span>┄ Residencia</span></footer>
+      </section>
+      <section class="inhabitants">
+        <div class="bar">
+          <h2>Habitantes de {{cityTitle(city()) || 'la ciudad'}}</h2>
+          <button class="light" [disabled]="!city()" (click)="print()">
+            Imprimir lista
+          </button>
+        </div>
+        <label class="controls"
+          >Consultar ciudad<select
+            [ngModel]="city()"
+            (ngModelChange)="city.set($event)"
+          >
+            @for(c of graph().cities; track c.id){
+            <option [value]="c.id">{{c.name}}</option>
+            }
+          </select></label
+        >
+        <table>
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Edad</th>
+              <th class="controls">Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for(p of residents(); track p.id){
+            <tr>
+              <td>{{p.name}}</td>
+              <td>{{p.age}}</td>
+              <td class="controls">
+                <button class="link" (click)="edit(p)">Editar</button
+                ><button class="link" (click)="removePerson(p.id)">
+                  Eliminar
+                </button>
+              </td>
+            </tr>
+            } @empty{
+            <tr>
+              <td colspan="3">Sin habitantes registrados.</td>
+            </tr>
+            }
+          </tbody>
+        </table>
+      </section>
+    </div>
+    <aside>
+      <section>
+        <h2>{{cityEdit ? 'Editar ciudad' : 'Agregar ciudad'}}</h2>
+        <form (ngSubmit)="saveCity()">
+          <label
+            >Nombre de la ciudad<input
+              name="cityName"
+              [(ngModel)]="cityName"
+              required
+              maxlength="80"
+          /></label>
+          <div class="actions">
+            <button [disabled]="!cityName.trim()">
+              {{cityEdit ? 'Guardar ciudad' : 'Agregar ciudad'}}
+            </button>
+            @if(cityEdit){<button
+              type="button"
+              class="link"
+              (click)="cityEdit='';cityName=''"
+            >
+              Cancelar</button
+            >}
+          </div>
+        </form>
+        @if(city()){
+        <details>
+          <summary>Administrar {{cityTitle(city())}}</summary>
+          <button
+            class="link"
+            (click)="cityEdit=city();cityName=cityTitle(city())"
+          >
+            Renombrar ciudad</button
+          ><button class="link" (click)="removeCity()">Eliminar ciudad</button>
+        </details>
+        }
+      </section>
+      <section>
+        <h2>{{personEdit ? 'Editar persona' : 'Agregar persona'}}</h2>
+        <form #pf="ngForm" (ngSubmit)="savePerson()">
+          <label
+            >Nombre de la persona<input
+              name="name"
+              [(ngModel)]="name"
+              required
+              maxlength="80"
+          /></label>
+          <div class="pair">
+            <label
+              >Edad<input
+                type="number"
+                name="age"
+                [(ngModel)]="age"
+                min="0"
+                step="1"
+                required /></label
+            ><label
+              >Ciudad de residencia<select
+                name="home"
+                [(ngModel)]="home"
+                required
+              >
+                <option value="" disabled>Elige una ciudad</option>
+                @for(c of graph().cities; track c.id){
+                <option [value]="c.id">{{c.name}}</option>
+                }
+              </select></label
+            >
+          </div>
+          <div class="actions">
+            <button [disabled]="pf.invalid || !name.trim()">
+              {{personEdit ? 'Guardar persona' : 'Agregar persona'}}
+            </button>
+            @if(personEdit){<button
+              type="button"
+              class="link"
+              (click)="resetPerson()"
+            >
+              Cancelar</button
+            >}
+          </div>
+        </form>
+      </section>
+      <section>
+        <h2>Amistades</h2>
+        <form (ngSubmit)="addFriend()">
+          <div class="pair">
+            <label
+              >Persona<select name="first" [(ngModel)]="first" required>
+                <option value="" disabled>Elegir</option>
+                @for(p of graph().people; track p.id){
+                <option [value]="p.id">
+                  {{p.name}} · {{cityTitle(p.cityId)}} · {{p.age}}
+                </option>
+                }
+              </select></label
+            >
+            <label
+              >Amistad con<select name="second" [(ngModel)]="second" required>
+                <option value="" disabled>Elegir</option>
+                @for(p of graph().people; track p.id){
+                <option [value]="p.id" [disabled]="p.id===first">
+                  {{p.name}} · {{cityTitle(p.cityId)}} · {{p.age}}
+                </option>
+                }
+              </select></label
+            >
+          </div>
+          <button [disabled]="!first || !second || first===second">
+            Conectar personas
+          </button>
+        </form>
+        <ul>
+          @for(f of graph().friends; track f.a+'|'+f.b){
+          <li>
+            {{personTitle(f.a)}} y {{personTitle(f.b)}}
+            <button class="link" (click)="removeFriend(f.a,f.b)">Quitar</button>
+          </li>
+          }
+        </ul>
+      </section>
+    </aside>
+  </div>
+</main>
