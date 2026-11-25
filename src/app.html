@@ -1,0 +1,50 @@
+<main>
+   @if (!ready()) {
+    <p role="status">Recuperando tu sesión…</p>
+  } @else if (!user()) {
+    <section class="auth">
+      <h1>{{ signup() ? 'Crea tu cuenta' : 'Mis tareas' }}</h1>
+      <p>{{ signup() ? 'Guarda tus tareas con tu correo.' : 'Inicia sesión para abrir tu lista.' }}</p>
+      <form #auth="ngForm" (ngSubmit)="authenticate()">
+        <label>Correo electrónico<input name="email" type="email" autocomplete="email" [(ngModel)]="email" email required></label>
+        <label>Contraseña<input name="password" type="password" [attr.autocomplete]="signup() ? 'new-password' : 'current-password'" [(ngModel)]="password" [minlength]="signup() ? 6 : 1" required></label>
+        <button [disabled]="busy() || auth.invalid">{{ signup() ? 'Registrarme' : 'Entrar' }}</button>
+      </form>
+      <button class="link" [disabled]="busy()" (click)="signup.set(!signup()); message.set('')">{{ signup() ? 'Ya tengo cuenta' : 'Crear una cuenta' }}</button>
+    </section>
+  } @else {
+    <header><span>{{ user()?.email }}</span><button class="link" [disabled]="busy()" (click)="logout()">Cerrar sesión</button></header>
+    <section>
+      <aside>
+        @if (avatar()) { <img [src]="avatar()" alt="Mi avatar"> }
+        <label>Mi avatar<input #pic type="file" accept="image/png,image/jpeg,image/webp" [disabled]="busy()" (change)="upload(pic)"></label>
+      </aside>
+      <div class="heading"><h1>Mis tareas</h1><small>{{ live() }}</small></div>
+      <form class="row" (ngSubmit)="mutate('add')">
+        <input aria-label="Título de la tarea" name="title" placeholder="Escribe una tarea" maxlength="150" [(ngModel)]="title" required>
+        <button [disabled]="busy() || !title.trim()">Agregar</button>
+      </form>
+      @if (loading()) { <p>Cargando tareas…</p> }
+      @else if (!tasks().length && !message()) { <p>Tu lista está vacía. Agrega tu primera tarea arriba.</p> }
+      <ul>
+        @for (t of tasks(); track t.id) {
+          <li>
+            @if (editing() === t.id) {
+              <form class="row" (ngSubmit)="mutate('edit',t)">
+                <input aria-label="Nuevo título" name="draft" [(ngModel)]="draft" maxlength="150" required>
+                <button [disabled]="busy() || !draft.trim()">Guardar</button>
+                <button type="button" class="link" (click)="editing.set('')">Cancelar</button>
+              </form>
+            } @else {
+              <button class="state" [attr.aria-pressed]="t.done" [attr.aria-label]="'Completada: ' + t.title" [disabled]="busy()" (click)="mutate('toggle',t)">{{ t.done ? '✓' : '○' }}</button>
+              <span class="task" [class.done]="t.done">{{ t.title }}</span>
+              <button class="link" [disabled]="busy()" (click)="editing.set(t.id); draft=t.title">Editar</button>
+              <button class="link delete" [disabled]="busy()" (click)="mutate('delete',t)">Eliminar</button>
+            }
+          </li>
+        }
+      </ul>
+    </section>
+  }
+  @if (message()) { <p class="notice" role="status">{{ message() }}</p> }
+</main>

@@ -1,0 +1,32 @@
+:root { font: 16px/1.5 Inter, system-ui, sans-serif; color: #173b34; background: #f2f5ef }
+* { box-sizing: border-box }
+body { margin:0 }
+main { max-width: 760px; margin: 8vh auto; padding: 0 18px }
+section { padding: clamp(22px, 5vw, 48px); background: white; border: 1px solid #cdd9d0; border-radius: 16px }
+.auth { max-width: 440px; margin: auto }
+h1 { margin: 0; font-size: clamp(2rem,5vw,3rem); letter-spacing: -.045em }
+p { color: #49645c }
+label { display: grid; gap: 4px; font-weight: 600; margin-bottom: 14px }
+input, button { font: inherit }
+input { width: 100%; min-width: 0; border: 1px solid #97aaa1; border-radius: 8px; padding: 9px 12px }
+button { background: #245e4a; color: white; border: 0; border-radius: 8px; padding: 9px 15px; cursor: pointer }
+button:disabled { opacity: .55; cursor: default }
+button.link { background: transparent; color: #315d4f; padding: 7px; text-decoration: underline; text-underline-offset: 3px }
+.auth .link { margin-top: 12px }
+header,.heading,aside,li,.row { display: flex; align-items: center; gap: 10px }
+header,.heading { justify-content: space-between; flex-wrap: wrap; margin-bottom: 16px }
+header span,.task { overflow-wrap: anywhere }
+aside { border-bottom: 1px solid #dce3db; padding-bottom: 12px; margin-bottom: 22px }
+aside label { margin: 0; font-size: .88rem }
+aside input { border: 0; padding: 0; font-size: .82rem }
+img { width: 54px; height: 54px; border-radius: 50%; object-fit: cover }
+small { color: #416a52 }
+ul { list-style: none; padding: 0; margin-bottom: 0 }
+li { border-top: 1px solid #dee6df; padding: 12px 0 }
+.row { width: 100% }
+.task { flex: 1 }
+.state { padding: 4px 9px }
+.done { text-decoration: line-through; color: #60776d }
+button.delete { color: #9b3d38 }
+.notice { background: #fff6d7; padding: 12px; border-radius: 8px }
+@media(max-width: 480px) { main { margin: 4vh auto } li { flex-wrap: wrap } .row { flex-wrap: wrap } .task { min-width: 50% } }
